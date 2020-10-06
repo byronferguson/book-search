@@ -1,0 +1,24 @@
+{
+  "name": "googlebooks-app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server/server.js",
+  "repository": "git@github.com:byronferguson/book-search.git",
+  "author": "Byron Ferguson <ferguson.bs@gmail.com>",
+  "license": "MIT",
+  "private": false,
+  "scripts": {
+    "start": "if-env NODE_ENV=production && yarn start:prod || yarn start:dev",
+    "start:prod": "cd server && npm start",
+    "start:dev": "concurrently \"cd server && yarn watch\" \"cd client && npm start\"",
+    "install": "cd ./server && yarn && cd ../client && yarn",
+    "seed": "cd server && yarn seed",
+    "heroku-postbuild": "cd client && yarn build"
+  },
+  "dependencies": {
+    "if-env": "^1.0.4"
+  },
+  "devDependencies": {
+    "concurrently": "^5.2.0"
+  }
+}
