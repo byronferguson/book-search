@@ -1,10 +1,22 @@
 const express = require('express');
 const path = require('path');
 const db = require('./config/connection');
+const { ApolloServer } = require('apollo-server-express');
+const { resolvers, typeDefs } = require('./schemas');
+const { authMiddleware } = require('./utils/auth');
+
 const routes = require('./routes');
 
 const app = express();
 const PORT = process.env.PORT || 3001;
+
+const gqlServer = new ApolloServer({
+  typeDefs,
+  resolvers,
+  context: authMiddleware,
+});
+
+gqlServer.applyMiddleware({ app });
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
